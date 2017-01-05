@@ -8,7 +8,7 @@ if (isset($_SESSION['user'])) {
     $data = $userLifecycle->getUserInfo($username);
     $category = $wordProcessing->getAllCategory();
     $wordName = null;
-    $max = 5;
+    $max = 6;
 
     if (isset($_POST['category'])) {
         #New game started
@@ -20,7 +20,7 @@ if (isset($_SESSION['user'])) {
         $category_id = intval($_POST['category']);
         $wordName = $wordProcessing->getWord($category_id);
         $_SESSION['category'] = $category_id;
-        $_SESSION['wordLength'] = strlen($wordName);
+        $_SESSION['wordLength'] = (strlen($wordName) - 2);
         $_SESSION['answer'] = str_split($wordName);
         $_SESSION['successful_letter'] = [];
         $_SESSION['error'] = 0;
@@ -41,16 +41,14 @@ if (isset($_SESSION['user'])) {
             $_SESSION['answer'] = [];
             echo 'SORRY, YOU ARE HANGED!';
         }
-        if ($_SESSION['successful_letter'] == ($_SESSION['wordLength'] -2)) {
+        if ($_SESSION['successful_letters_int'] === $_SESSION['wordLength']) {
             echo 'CONGRATULATIONS YOU GUESSED IT!';
         }
     }
 
-    var_dump($_SESSION['successful_letters_int']);
-    var_dump($_SESSION['answer']);
-    if (!empty($_SESSION['wordLength'])) {
-        $_SESSION['hiddenWord'] = array_fill(0, $_SESSION['wordLength'], '_');
 
+    if (!empty($_SESSION['wordLength'])) {
+        //$_SESSION['hiddenWord'] = array_fill(0, $_SESSION['wordLength'], '_');
 
         foreach ($_SESSION['answer'] as $value) {
             if ($value == reset($_SESSION['answer'])) {

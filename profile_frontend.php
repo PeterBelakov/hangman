@@ -11,6 +11,8 @@
         <a href="profile.php?letter=<?= $_SESSION['select_letter'] = $letter;?>"><?= $letter; ?></a>
     <?php endforeach; ?>
 </div>
+
+<img src = 'images/<?php echo $_SESSION['error']; ?>.gif' />
 <form method="POST" action="./profile.php">
 
     <select name="category">
