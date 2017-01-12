@@ -13,8 +13,6 @@ class AllCategoryDTO
         return $this->id;
     }
 
-
-
     /**
      * @return mixed
      */
@@ -22,8 +20,6 @@ class AllCategoryDTO
     {
         return $this->category_name;
     }
-
-
 
 
 }

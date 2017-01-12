@@ -80,7 +80,7 @@ class UserLifecycle
 
 
         if ($newUsername == $oldUsername) {
-            // no change of the key
+               // no change of the key
             return $this->changeUserData($inputData, $info, $isForeignEdit);
 
         } else {
@@ -150,6 +150,7 @@ class UserLifecycle
         $existingUsers = $this->db;
 
         $newUsername = $userData['username'];
+
 
         if (strlen($newUsername) < 3) {
             throw new \Exception("User validation mismatch");

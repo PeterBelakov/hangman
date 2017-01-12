@@ -6,6 +6,7 @@ class UserEditDTO
     private $username;
     private $password;
     private $email;
+    private $id;
 
 
     /**
@@ -14,6 +15,22 @@ class UserEditDTO
     public function setForeignEdit($isForeignEdit)
     {
         $this->isForeignEdit = $isForeignEdit;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
