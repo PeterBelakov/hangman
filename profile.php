@@ -9,6 +9,7 @@ if (isset($_SESSION['user'])) {
     $username = $_SESSION['user'];
     // recording a user_id in session
     $data = $userLifecycle->getUserInfo($username);
+
     $_SESSION['user_id'] = intval($data->getId());
     $user_id = $_SESSION['user_id'];
 
@@ -62,7 +63,7 @@ if (isset($_SESSION['user'])) {
             if (in_array($_GET['letter'], $_SESSION['answer']) && (current($_SESSION['answer']) != $_GET['letter']) && (end($_SESSION['answer']) != $_GET['letter'])) {
                 $answerCount = array_count_values($_SESSION['answer']);
                 $answerCount[$_GET['letter']];
-                $_SESSION['successful_letters_int'] += $answerCount[$_GET['letter']];   
+                $_SESSION['successful_letters_int'] += $answerCount[$_GET['letter']];
             } elseif (current($_SESSION['answer']) == $_GET['letter'] || (end($_SESSION['answer']) == $_GET['letter'])) {
                 $_SESSION['successful_letter'][] = $_GET['letter'];
             } else {
@@ -70,7 +71,7 @@ if (isset($_SESSION['user'])) {
             }
             if ($_SESSION['error'] >= $max) {
                 $_SESSION['answer'] = [];
-                echo 'GAME OVER!';
+                //echo 'GAME OVER!';
                 $waste += 1;
 
             }
@@ -88,26 +89,25 @@ if (isset($_SESSION['user'])) {
 
         }
     }
-    echo "Victory:" . $victory . '</br>';
-    echo "Waste:" . $waste;
-    echo '</br>';
-    if (!empty($_SESSION['wordLength'])) {
-        //$_SESSION['hiddenWord'] = array_fill(0, $_SESSION['wordLength'], '_');
 
-        foreach ($_SESSION['answer'] as $value) {
-            if ($value == reset($_SESSION['answer'])) {
-                echo reset($_SESSION['answer']);
-            } elseif ($value == end($_SESSION['answer'])) {
-                echo end($_SESSION['answer']);
-            } elseif (in_array($value, $_SESSION['selected_letter'], TRUE)) {
-                echo $value;
-            } else {
-                echo $value = ' _';
-            }
-        }
-    } else {
-        echo 'Choose category!';
-    }
+    //    if (!empty($_SESSION['wordLength'])) {
+    //        //$_SESSION['hiddenWord'] = array_fill(0, $_SESSION['wordLength'], '_');
+    //
+    //        foreach ($_SESSION['answer'] as $value) {
+    //            if ($value == reset($_SESSION['answer'])) {
+    //                echo reset($_SESSION['answer']);
+    //            } elseif ($value == end($_SESSION['answer'])) {
+    //                echo end($_SESSION['answer']);
+    //            } elseif (in_array($value, $_SESSION['selected_letter'], TRUE)) {
+    //                echo $value;
+    //            } else {
+    //                echo $value = ' _';
+    //            }
+    //        }
+    //    } else {
+    //        echo 'Choose category!';
+    //    }
+//
     $alphas = range('A', 'Z');
 
     include 'profile_frontend.php';
