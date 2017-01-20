@@ -5,6 +5,7 @@
 session_start();
 include 'application.php';
 
+
 if (isset($_SESSION['user'])) {
     $username = $_SESSION['user'];
     // recording a user_id in session
@@ -45,6 +46,8 @@ if (isset($_SESSION['user'])) {
         $category_id = intval($_POST['category']);
         // making random word database
         $wordName = $wordProcessing->getWord($category_id);
+        $wordDescription = $wordProcessing->getDescriptionWord($wordName);
+        $_SESSION['wordDescription'] = $wordDescription;
         $_SESSION['category'] = $category_id;
         $_SESSION['wordLength'] = (strlen($wordName) - 2);
         $_SESSION['answer'] = str_split($wordName);
@@ -52,6 +55,7 @@ if (isset($_SESSION['user'])) {
         $_SESSION['error'] = 0;
         $_SESSION['successful_letters_int'] = 0;
     }
+
     //
     if (isset($_GET['letter']) && isset($_SESSION['selected_letter'])) {
         if (!in_array($_GET['letter'], $_SESSION['selected_letter'])) {
@@ -71,12 +75,14 @@ if (isset($_SESSION['user'])) {
             }
             if ($_SESSION['error'] >= $max) {
                 $_SESSION['answer'] = [];
-                //echo 'GAME OVER!';
+
                 $waste += 1;
 
             }
+
             if ($_SESSION['successful_letters_int'] === $_SESSION['wordLength']) {
-                echo 'CONGRATULATIONS YOU GUESSED IT!';
+                $_SESSION['answer'] = [];
+               // echo 'CONGRATULATIONS YOU GUESSED IT!';
                 $victory += 1;
 
             }
@@ -90,24 +96,6 @@ if (isset($_SESSION['user'])) {
         }
     }
 
-    //    if (!empty($_SESSION['wordLength'])) {
-    //        //$_SESSION['hiddenWord'] = array_fill(0, $_SESSION['wordLength'], '_');
-    //
-    //        foreach ($_SESSION['answer'] as $value) {
-    //            if ($value == reset($_SESSION['answer'])) {
-    //                echo reset($_SESSION['answer']);
-    //            } elseif ($value == end($_SESSION['answer'])) {
-    //                echo end($_SESSION['answer']);
-    //            } elseif (in_array($value, $_SESSION['selected_letter'], TRUE)) {
-    //                echo $value;
-    //            } else {
-    //                echo $value = ' _';
-    //            }
-    //        }
-    //    } else {
-    //        echo 'Choose category!';
-    //    }
-//
     $alphas = range('A', 'Z');
 
     include 'profile_frontend.php';
@@ -116,4 +104,3 @@ if (isset($_SESSION['user'])) {
     exit;
 }
 ?>
-

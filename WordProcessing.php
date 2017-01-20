@@ -15,6 +15,7 @@ class WordProcessing
         $this->db = $db;
 
     }
+
     /**
      * @return Generator
      */
@@ -25,12 +26,13 @@ class WordProcessing
                   FROM 
                   categorys ";
         $stmt = $this->db->prepare($query);
-        $stmt ->execute();
+        $stmt->execute();
 
         while ($row = $stmt->fetchObject(AllCategoryDTO::class)) {
             yield $row;
         }
     }
+
     public function getWord(string $word) : string
     {
         $query = "SELECT word FROM words 
@@ -42,6 +44,16 @@ class WordProcessing
         $row = $stmt->fetch();
         return $row['word'];
 
+    }
+
+    public function getDescriptionWord(string $word)
+    {
+        $query =  "SELECT description FROM words
+                   WHERE word = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$word]);
+        $row = $stmt->fetch();
+        return $row['description'];
     }
 }
 
