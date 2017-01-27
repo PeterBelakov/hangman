@@ -30,10 +30,10 @@
     <?php if (!empty($_SESSION['wordLength'])): ?>
         <div class="center">
             <h3>
-                <?php  foreach ($_SESSION['answer'] as $value) {
+                <?php  foreach ($_SESSION['answer'] as $key=>$value) {
                     if ($value == reset($_SESSION['answer'])) {
                         echo reset($_SESSION['answer']);
-                    } elseif ($value == end($_SESSION['answer'])) {
+                    } elseif (($key == $_SESSION['key']) && $value == end($_SESSION['answer'])) {
                         echo end($_SESSION['answer']);
                     } elseif (in_array($value, $_SESSION['selected_letter'], TRUE)) {
                         echo $value;
@@ -75,15 +75,15 @@
     </div>
     <?php endif; ?>
     <form method="POST" action="./profile.php">
-        <label>
-            <select name="category">
-                    <?php foreach ($category as $value): ?>
+                    <label>
+                        <select name="category">
+                            <?php foreach ($category as $value): ?>
 
-                    <option
-                    <?php if (isset($_SESSION['category']) && ($_SESSION['category'] == $value->getId())):
-                    ?>selected="selected" <?php endif; ?>
-                    value="<?= $value->getId(); ?>"><?= $value->getCategory(); ?>
-                    </option>
+                                <option
+                                    <?php if (isset($_SESSION['category']) && ($_SESSION['category'] == $value->getId())):
+                                    ?>selected="selected" <?php endif; ?>
+                                    value="<?= $value->getId(); ?>"><?= $value->getCategory(); ?>
+                                </option>
                     <?php endforeach; ?>
             </select>
         </label>

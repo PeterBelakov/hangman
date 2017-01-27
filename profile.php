@@ -54,6 +54,7 @@ if (isset($_SESSION['user'])) {
         $_SESSION['successful_letter'] = [];
         $_SESSION['error'] = 0;
         $_SESSION['successful_letters_int'] = 0;
+        $_SESSION['key'] = (strlen($wordName) - 1);
     }
 
     //
@@ -64,10 +65,16 @@ if (isset($_SESSION['user'])) {
                 $_SESSION['selected_letter'][] = $_GET['letter'];
 
             }
-            if (in_array($_GET['letter'], $_SESSION['answer']) && (current($_SESSION['answer']) != $_GET['letter']) && (end($_SESSION['answer']) != $_GET['letter'])) {
+
+            if (in_array($_GET['letter'], $_SESSION['answer']) && (current($_SESSION['answer']) != $_GET['letter']) && (end($_SESSION['answer']) || ($answerCount[$_GET['letter']] > 1 ) != $_GET['letter'])) {
+               // if(end($_SESSION['answer'] == )
                 $answerCount = array_count_values($_SESSION['answer']);
                 $answerCount[$_GET['letter']];
+                if((end($_SESSION['answer']) == $_GET['letter'] || current($_SESSION['answer']) == $_GET['letter']) && $answerCount[$_GET['letter']] > 1){
+                    $_SESSION['successful_letters_int'] += ($answerCount[$_GET['letter']] - 1 );
+                }else {
                 $_SESSION['successful_letters_int'] += $answerCount[$_GET['letter']];
+                }
             } elseif (current($_SESSION['answer']) == $_GET['letter'] || (end($_SESSION['answer']) == $_GET['letter'])) {
                 $_SESSION['successful_letter'][] = $_GET['letter'];
             } else {
@@ -93,14 +100,14 @@ if (isset($_SESSION['user'])) {
             $statisticData['user_id'] = $_SESSION['user_id'];
             $statistics->updateStatistic($statisticData);
 
-        }
-    }
+}
+ 
+}
+$alphas = range('A', 'Z');
 
-    $alphas = range('A', 'Z');
-
-    include 'profile_frontend.php';
+include 'profile_frontend.php';
 } else {
-    header("Location: login.php?error=You have tried  to cheat");
-    exit;
+header("Location: login.php?error=You have tried  to cheat");
+exit;
 }
 ?>
