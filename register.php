@@ -16,4 +16,4 @@ if (isset($_POST['register'])) {
 }
 
 
-include 'register_frontend.php';
+include 'assets/views/register_frontend.php';

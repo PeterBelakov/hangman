@@ -1,4 +1,4 @@
-<?php include 'header.html';  ?>
+<?php include 'assets/views/header.html' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,20 +8,20 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="profile.php">Hangman</a>
+                <a class="navbar-brand" href="../hangman/profile.php">Hangman</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">User: <?= $data->getUsername(); ?></a></li>
-                    <li><a href="#">Victory: <?= $victory; ?></a></li>
-                    <li><a href="#">Wasted: <?= $waste; ?></a></li>
+                    <li><a href="#">User: <?=  $game->getUsername(); ?></a></li>
+                    <li><a href="#">Victory: <?= $game->getVictory(); ?></a></li>
+                    <li><a href="#">Wasted: <?= $game->getWaste(); ?></a></li>
                     <li class="dropdown">
 
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="logout.php">log out</a></li>
+                    <li><a href="../hangman/logout.php">log out</a></li>
                 </ul>
             </div>
         </div>
@@ -57,9 +57,9 @@
     <?php endif; ?>
     <div class="alert alert-dismissible alert-success">
         <?php if (!isset($_SESSION['error'])): ?>
-            <img src='images/0.gif'/>
+            <img src='./assets/images/0.gif'/>
         <?php else: ?>
-            <img src='images/<?= $_SESSION['error']; ?>.gif'/>
+            <img src='./assets/images/<?= $_SESSION['error']; ?>.gif'/>
         <?php endif; ?>
         <?php if (isset($_SESSION['successful_letters_int']) && isset($_SESSION['wordLength'])): ?>
             <?php if (($_SESSION['successful_letters_int']) == $_SESSION['wordLength']): ?>
@@ -68,16 +68,16 @@
                 </div>
             <?php endif; ?>
         <?php endif; ?>
-        <?php if (isset($_SESSION['error']) && $_SESSION['error'] >= $max): ?>
+        <?php if (isset($_SESSION['error']) && $_SESSION['error'] >= $game->getMax()): ?>
             <div class="center">
                 <strong>GAME OVER!</strong>
             </div>
     </div>
     <?php endif; ?>
-    <form method="POST" action="./profile.php">
+    <form method="POST" action="../hangman/profile.php">
                     <label>
                         <select name="category">
-                            <?php foreach ($category as $value): ?>
+                            <?php foreach ($game->getCategory() as $value): ?>
 
                                 <option
                                     <?php if (isset($_SESSION['category']) && ($_SESSION['category'] == $value->getId())):
@@ -92,8 +92,8 @@
         <input type="submit" value="Select">
         <div class="well bs-component">
             <h4>
-                <?php foreach ($alphas as $letter): ?>
-                    <a href="profile.php?letter=<?= $_SESSION['select_letter'] = $letter; ?>"><?= $letter; ?></a>
+                <?php foreach ($game->getAlphas() as $letter): ?>
+                    <a href="../hangman/profile.php?letter=<?= $_SESSION['select_letter'] = $letter; ?>"><?= $letter; ?></a>
                 <?php endforeach; ?>
             </h4>
         </div>

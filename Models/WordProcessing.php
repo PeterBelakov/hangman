@@ -1,4 +1,5 @@
 <?php
+
 use Drivers\Database;
 use DTO\AllCategoryDTO;
 

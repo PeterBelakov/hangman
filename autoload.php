@@ -1,5 +1,6 @@
 <?php
-spl_autoload_register(function ($class) {
-    $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
-    require_once $class.".php";
-});
+#Load all Drivers, DTO, Models in a fancy way :)
+ini_set("include_path", "./Drivers");
+ini_set("include_path", "./DTO");
+ini_set("include_path", "./Models");
+spl_autoload_register();
